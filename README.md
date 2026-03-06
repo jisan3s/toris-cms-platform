@@ -1,46 +1,59 @@
 # Toris CMS Platform
 
-Full-stack CMS-driven agency website with Owner/Admin dashboards, dynamic content sections, user auth, and contact submission queue processing.
+Full-stack CMS-driven agency website with Owner/Admin dashboards, dynamic section management, CMS item management, user auth, and async contact email queue.
 
 ## Repository
 
-- Suggested repo name: `toris-cms-platform`
-- Current GitHub: `https://github.com/jisan3s/toris-cms-platform.git`
+- GitHub: `https://github.com/jisan3s/toris-cms-platform.git`
+- Root folders:
+- `toris-frontend` (Angular app)
+- `toris-backend` (Express API + MongoDB logic)
 
-## Tech Stack
+## What This Project Controls
 
-- Frontend: Angular 21
-- Backend: Node.js + Express 5
-- Database: MongoDB Atlas
-- Media Uploads: Cloudinary
-- Email: Gmail SMTP (App Password)
-- Testing: Node test runner + Playwright (E2E scaffolding)
+### Website Content Control (Dashboard)
 
-## Project Structure
+Owner/Admin can control:
 
-- `toris-frontend/`: public website + auth pages + owner/admin dashboards
-- `toris-backend/`: API server, auth, CMS logic, queue worker, DB models
-- `toris-backend/data/api-export/`: exported Mongo API data snapshot (JSON)
+- Global header/footer content and links
+- Public page sections for managed pages (about, contact, faq, pricing, services, testimonials, blog, portfolio, team, careers, terms, privacy)
+- CMS item lists:
+- Services
+- Blog
+- Portfolio
+- Contact submission statuses (Owner overview)
 
-## Key Features
+### User/Admin Control
 
-- CMS-managed page sections across public routes
-- Owner dashboard:
-- Admin account management
-- User account management
-- Contact submissions management
-- User auth:
-- Register/Login
-- Forgot/Reset password (token-based)
-- Refresh token + session storage
-- Optional email verification gate (`USER_EMAIL_VERIFY_REQUIRED`)
-- Contact pipeline:
-- Form saves submission to DB
-- Async email queue worker
-- Retry + dead-letter status
-- Ops:
-- Request ID logging
-- Health and readiness endpoints
+Owner can control:
+
+- Admin account create/edit/block/delete
+- User account block/delete
+- Contact submission status (`new`, `read`, `archived`)
+
+## Architecture Overview
+
+### Frontend
+
+- Framework: Angular 21
+- Routing: `src/app/app.routes.ts`
+- Owner content editor:
+- Non-CMS pages: `src/app/pages/owner/dashboard/page-editor`
+- CMS items: `src/app/pages/owner/dashboard/blog`
+- API configs: `src/app/shared/config/api.ts`
+
+### Backend
+
+- Runtime: Node.js + Express 5
+- DB: MongoDB Atlas via Mongoose
+- Key routes:
+- Public content: `routes/publicContentRoutes.js`
+- User auth: `routes/authRoutes.js`
+- Owner content: `routes/ownerContentRoutes.js`
+- Owner admin/user/contact management:
+- `routes/ownerAdminRoutes.js`
+- `routes/ownerUserRoutes.js`
+- `routes/ownerContactRoutes.js`
 
 ## Local Development Setup
 
@@ -51,7 +64,7 @@ git clone https://github.com/jisan3s/toris-cms-platform.git
 cd toris-cms-platform
 ```
 
-### 2. Backend Setup
+### 2. Backend
 
 ```bash
 cd toris-backend
@@ -60,9 +73,9 @@ npm install
 npm run dev
 ```
 
-Backend runs on `http://localhost:5001` by default.
+Backend default: `http://localhost:5001`
 
-### 3. Frontend Setup
+### 3. Frontend
 
 ```bash
 cd ../toris-frontend
@@ -70,99 +83,225 @@ npm install
 npm start
 ```
 
-Frontend runs on `http://localhost:4200` by default.
+Frontend default: `http://localhost:4200`
 
 ## Environment Variables (Backend)
 
-Start from [toris-backend/.env.example](/Users/envytheme/AA%20Practice%20Projects/toris/toris-backend/.env.example).
+Template: `toris-backend/.env.example`
 
-Critical values:
+Required core:
 
 - `MONGO_URI`
 - `JWT_SECRET`
 - `USER_JWT_SECRET`
 - `USER_REFRESH_JWT_SECRET`
-- `OWNER_EMAIL`, `OWNER_PASSWORD`
+- `OWNER_EMAIL`
+- `OWNER_PASSWORD`
 - `CORS_ALLOWED_ORIGINS`
-- `GMAIL_USER`, `GMAIL_APP_PASSWORD`
-- `CONTACT_FROM_EMAIL`, `CONTACT_NOTIFY_TO`
 
-## MongoDB Atlas Data Export/Restore
+Contact/email:
 
-This project already includes exported API data in:
+- `GMAIL_USER`
+- `GMAIL_APP_PASSWORD`
+- `CONTACT_FROM_EMAIL`
+- `CONTACT_NOTIFY_TO`
 
-- [toris-backend/data/api-export](/Users/envytheme/AA%20Practice%20Projects/toris/toris-backend/data/api-export)
+Queue and auth controls:
 
-### Export current Atlas API data
+- `EMAIL_WORKER_POLL_MS`
+- `EMAIL_WORKER_MAX_ATTEMPTS`
+- `RESET_PASSWORD_TOKEN_TTL_MINUTES`
+- `USER_EMAIL_VERIFY_REQUIRED`
+- `USER_ACCESS_TOKEN_TTL`
+- `USER_REFRESH_TOKEN_TTL`
+
+## How To Control Content
+
+### A) Manage Non-CMS Page Sections
+
+- Dashboard route: Owner -> `Pages/...` editors
+- Frontend section schema source:
+- `toris-frontend/src/app/pages/owner/dashboard/page-editor/managed-pages.ts`
+- Backend section validation source:
+- `toris-backend/validators/siteSectionValidation.js`
+- Section save API:
+- `PUT /api/owner/content/sections/:page/:section`
+
+If adding a new section field:
+
+1. Add field in `managed-pages.ts`
+2. Add corresponding schema in backend validator
+3. Use the field in public page component/template
+
+### B) Manage CMS Items (Services/Blog/Portfolio)
+
+- Dashboard CMS editor:
+- `toris-frontend/src/app/pages/owner/dashboard/blog`
+- CMS form fields component:
+- `toris-frontend/src/app/pages/owner/dashboard/blog/owner-cms-fields.ts`
+- Backend CRUD:
+- `toris-backend/controllers/owner/cmsController.js`
+- Routes:
+- `GET/POST/PUT/DELETE /api/owner/content/:type`
+
+If adding a new CMS field:
+
+1. Add form control in CMS editor frontend
+2. Add field in payload normalization (`cmsController.js`)
+3. Add field rendering in public page/detail component
+
+### C) Header/Footer Global Navigation
+
+- Managed in page editor under page key `global`, sections `header` and `footer`
+- Data source on frontend via site-content service and `sections[...]` lookups
+
+## How To Add A New Managed Page
+
+1. Add public route in `toris-frontend/src/app/app.routes.ts`
+2. Create page component/template in `src/app/pages/<page>`
+3. Register page + sections in:
+- `src/app/pages/owner/dashboard/page-editor/managed-pages.ts`
+4. Add backend validation schema for new page/sections:
+- `toris-backend/validators/siteSectionValidation.js`
+5. Ensure page reads content from site sections API (no hardcoded content)
+
+## Contact Form + Queue Flow
+
+### Flow
+
+1. Frontend submits contact form to:
+- `POST /api/content/contact/submit`
+2. Backend stores record in `contactsubmissions`
+3. Backend enqueues email job in `emailjobs`
+4. Worker (`workers/emailQueueWorker.js`) sends email
+5. On failure, retries with backoff; final state -> `dead_letter`
+
+### Owner Controls
+
+- Owner overview can list submissions and change status
+- APIs:
+- `GET /api/owner/contact/submissions`
+- `PATCH /api/owner/contact/submissions/:id/status`
+- `GET /api/owner/contact/dead-letters`
+
+## Auth System (Current)
+
+- Register/Login/Forgot/Reset
+- Refresh token + session persistence (`UserSession`)
+- Logout revokes refresh session
+- Password reset invalidates active sessions
+- Optional email verification gate
+
+Auth routes:
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/refresh`
+- `POST /api/auth/logout`
+- `POST /api/auth/forgot-password`
+- `POST /api/auth/reset-password`
+- `POST /api/auth/verify-email`
+
+## MongoDB Atlas Export/Restore (Full)
+
+Data snapshot folder:
+
+- `toris-backend/data/api-export`
+
+### Export from Atlas
 
 ```bash
 cd toris-backend
 npm run export:api-data
 ```
 
-This reads from `MONGO_URI` and writes JSON snapshots into `data/api-export/`.
+Exports collections:
 
-### Restore API data into MongoDB Atlas
+- `aboutcontents`
+- `cmscontents`
+- `sitesections`
+- `contactsubmissions`
+- `emailjobs`
+
+### Restore to Atlas
 
 ```bash
 cd toris-backend
 npm run restore:api-data -- --replace
 ```
 
-Important restore behavior:
+Restore behavior:
 
-- `--replace` is required (safety switch).
-- It clears these collections before restore:
-- `aboutcontents`
-- `cmscontents`
-- `sitesections`
-- `contactsubmissions`
-- `emailjobs`
-- Then inserts documents from `data/api-export/*.json`.
+- Requires `--replace`
+- Deletes target collection data first
+- Inserts documents from JSON snapshot files
 
-Use this only when you intentionally want to overwrite target data.
-
-## Common Scripts
+## Scripts Reference
 
 ### Backend (`toris-backend`)
 
-- `npm run dev`: start backend with nodemon
-- `npm start`: start backend (node)
-- `npm run lint`: eslint + syntax checks
-- `npm test`: backend tests
-- `npm run export:api-data`: export Atlas snapshot
-- `npm run restore:api-data -- --replace`: restore snapshot to DB
+- `npm run dev`
+- `npm start`
+- `npm run lint`
+- `npm test`
+- `npm run export:api-data`
+- `npm run restore:api-data -- --replace`
+- `npm run deploy:check`
+- `npm run secrets:check`
 
 ### Frontend (`toris-frontend`)
 
-- `npm start`: run Angular dev server
-- `npm run build`: production build
-- `npm run lint`: eslint + typecheck + template checks
-- `npm run e2e:list`: list Playwright E2E tests
-- `npm run e2e`: run Playwright tests
+- `npm start`
+- `npm run build`
+- `npm run lint`
+- `npm run e2e:list`
+- `npm run e2e`
 
-## API Health Endpoints
+## Deployment Checklist
 
+1. Set all production env vars in secret manager
+2. Rotate all development/shared credentials
+3. Set strict `CORS_ALLOWED_ORIGINS`
+4. Set production Atlas URI with least-privilege user
+5. Ensure health endpoints exposed:
 - `GET /health`
 - `GET /ready`
-
-## Security and Secrets
-
-- `.env` is ignored by git.
-- `.env.example` is committed as placeholder template only.
-- Never commit real secrets.
-- Rotate secrets if they were ever shared.
-- For production, use a secret manager (not files).
+6. Run before deploy:
+- Backend: `npm run lint && npm test`
+- Frontend: `npm run lint && npm run build`
 
 ## Troubleshooting
 
-- CORS blocked:
-- Ensure `CORS_ALLOWED_ORIGINS` includes your frontend origin exactly.
-- Contact email not sending:
-- Verify `GMAIL_USER` and `GMAIL_APP_PASSWORD` (Google App Password, not normal password).
-- Atlas export/restore fails:
-- Verify `MONGO_URI` and IP/network access from current machine.
+### Dashboard content not updating
+
+- Check API origin in frontend (`shared/config/api.ts`)
+- Verify owner/admin token is present and valid
+- Verify section keys match backend validator schema
+
+### Contact form saves but no email
+
+- Check Gmail env vars
+- Verify Google app password is valid
+- Inspect `emailjobs` for failed/dead-letter items
+
+### CORS blocked
+
+- Ensure exact frontend URL is in `CORS_ALLOWED_ORIGINS`
+- Restart backend after env changes
+
+### Atlas restore fails
+
+- Confirm `MONGO_URI`
+- Confirm network/IP access to Atlas cluster
+- Confirm `--replace` flag used
+
+## Security Notes
+
+- `.env` must never be committed
+- `.env.example` should contain placeholders only
+- Rotate credentials immediately if exposed
+- Use platform secret manager in production
 
 ## License
 
-Private/Internal project.
+Private/Internal
