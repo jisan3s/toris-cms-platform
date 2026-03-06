@@ -15,6 +15,7 @@
     "deploy:check": "node scripts/deployment-check.js",
     "deploy:check:strict": "node scripts/deployment-check.js --strict",
     "export:api-data": "node scripts/export-api-data.js",
+    "restore:api-data": "node scripts/restore-api-data.js",
     "start": "node server.js",
     "dev": "nodemon server.js",
     "migrate:owner-admins": "node scripts/migrateOwnerCreatedAdmins.js",
