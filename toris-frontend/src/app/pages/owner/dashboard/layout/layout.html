@@ -1,0 +1,18 @@
+<div class="owner-shell">
+    <aside class="owner-sidebar">
+        <h4 class="fw-bold mb-4">Owner Panel</h4>
+
+        <a routerLink="/owner/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Overview</a>
+        <a routerLink="/owner/dashboard/home" routerLinkActive="active">Home Content</a>
+        <a routerLink="/owner/dashboard/cms" routerLinkActive="active">CMS Manager</a>
+        @for (page of managedPages; track page.key) {
+        <a [routerLink]="['/owner/dashboard/pages', page.key]" routerLinkActive="active">{{ page.label }} Content</a>
+        }
+
+        <button class="btn btn-outline-danger mt-4 w-100" (click)="logout()">Logout</button>
+    </aside>
+
+    <main class="owner-main">
+        <router-outlet />
+    </main>
+</div>

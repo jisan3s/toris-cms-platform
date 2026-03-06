@@ -1,0 +1,57 @@
+<app-header />
+
+<!-- Page Header -->
+<section class="bg-dark text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="heroTitle | richText"></h1>
+            <p class="lead" [innerHTML]="heroSubtitle | richText"></p>
+        </div>
+</section>
+
+<!-- Portfolio Grid -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            @for (project of displayedProjects; track project.slug) {
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img
+                            [src]="getProjectImage(project)"
+                            class="card-img-top"
+                            alt="project image"
+                        >
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">
+                                {{ project.category }}
+                            </span>
+                            <h5 class="card-title fw-bold" [innerHTML]="project.title | richText"></h5>
+                            <p class="text-muted mb-3" [innerHTML]="project.summary | richText"></p>
+                            <a [routerLink]="['/portfolio', project.slug]" class="btn btn-outline-primary btn-sm">
+                                {{ getProjectButtonText(project) }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-5">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <button class="page-link" (click)="prevPage()">Prev</button>
+                    </li>
+                    @for (pageNumber of paginationSteps; track pageNumber) {
+                        <li class="page-item" [class.active]="pageNumber === currentPage">
+                            <button class="page-link" (click)="goToPage(pageNumber)">{{ pageNumber }}</button>
+                        </li>
+                    }
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <button class="page-link" (click)="nextPage()">Next</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<app-footer />

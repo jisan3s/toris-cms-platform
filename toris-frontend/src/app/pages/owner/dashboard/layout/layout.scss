@@ -1,0 +1,59 @@
+.owner-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    background: linear-gradient(180deg, #f2f7f1 0%, #edf4eb 100%);
+}
+
+.owner-sidebar {
+    background: linear-gradient(180deg, #14382c 0%, #1f4c3b 100%);
+    color: #fff;
+    padding: 24px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+}
+
+.owner-sidebar a {
+    color: #e2efe8;
+    text-decoration: none;
+    padding: 10px 13px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.owner-sidebar a.active,
+.owner-sidebar a:hover {
+    background: rgba(240, 255, 245, 0.16);
+    color: #fff;
+}
+
+.owner-main {
+    padding: 28px;
+}
+
+.owner-main :is(.card, .alert, .table-responsive) {
+    border-radius: 18px;
+}
+
+.owner-main .card {
+    background: #ffffff;
+    border: 1px solid #d8e6dd;
+    box-shadow: 0 12px 30px rgba(16, 36, 25, 0.08);
+}
+
+@media (max-width: 991px) {
+    .owner-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .owner-sidebar {
+        position: static;
+        min-height: auto;
+    }
+}

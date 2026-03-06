@@ -1,0 +1,266 @@
+<app-header />
+
+@if (!isLoading) {
+<!-- ================= HERO SECTION ================= -->
+<section class="hero-section text-white d-flex align-items-center py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4" [innerHTML]="banner.title | richText"></h1>
+                <h3 class="mb-3" [innerHTML]="banner.subtitle | richText"></h3>
+                <p class="lead mb-4" [innerHTML]="banner.description | richText"></p>
+                @if (isBannerButtonExternal) {
+                <a class="btn btn-primary btn-lg" [href]="bannerButtonLink">
+                    {{ banner.buttonText }}
+                </a>
+                } @else {
+                <a class="btn btn-primary btn-lg" [routerLink]="bannerButtonLink">
+                    {{ banner.buttonText }}
+                </a>
+                }
+            </div>
+            <div class="col-lg-6 text-center">
+                @if (bannerImage) {
+                    <img [src]="bannerImage" class="img-fluid" alt="Hero">
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= CLIENTS ================= -->
+<section class="py-5 bg-light text-center">
+    <div class="container">
+        <p class="text-muted mb-4" [innerHTML]="homeSections['clients']?.title | richText"></p>
+        <div class="row justify-content-center g-4">
+            @for (logo of clientLogos; track $index) {
+                <div class="col-6 col-md-2">
+                    <img [src]="logo" class="img-fluid opacity-75">
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= ABOUT PREVIEW ================= -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <img [src]="aboutPreviewImage" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-4" [innerHTML]="homeSections['about-preview']?.heading | richText"></h2>
+                <p class="text-muted mb-4" [innerHTML]="homeSections['about-preview']?.description | richText"></p>
+                @if (isAboutPreviewButtonExternal) {
+                <a [href]="aboutPreviewButtonLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    {{ homeSections['about-preview']?.buttonText }}
+                </a>
+                } @else {
+                <a [routerLink]="aboutPreviewButtonLink" class="btn btn-primary">
+                    {{ homeSections['about-preview']?.buttonText }}
+                </a>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold" [innerHTML]="servicesHeading | richText"></h2>
+            <p class="text-muted" [innerHTML]="servicesSubtitle | richText"></p>
+        </div>
+        <div class="row g-4">
+            @for (service of services; track service._id) {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="icon-box mb-3">
+                            <i class="{{ getServiceIcon(service) }} fs-1 text-primary"></i>
+                        </div>
+                        <h5 class="fw-bold" [innerHTML]="service.title | richText"></h5>
+                        <p class="text-muted" [innerHTML]="getServiceSummary(service) | richText"></p>
+                        <a [routerLink]="getServiceCardLink(service)" class="btn btn-sm btn-outline-primary">
+                            {{ getServiceCardButtonText(service) }}
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-4">
+            @if (isServicesSectionButtonExternal) {
+            <a [href]="servicesSectionButtonLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                {{ servicesSectionButtonText }}
+            </a>
+            } @else {
+            <a [routerLink]="servicesSectionButtonLink" class="btn btn-primary">
+                {{ servicesSectionButtonText }}
+            </a>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= WHY CHOOSE US ================= -->
+<section class="pb-5">
+    <div class="container">
+            <div class="text-center mb-4">
+            <p class="text-muted mb-0" [innerHTML]="homeSections['why-choose']?.subtitle | richText"></p>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <h3 class="fw-bold text-primary">{{ homeSections['why-choose']?.yearsExperience }}</h3>
+                <p>{{ homeSections['why-choose']?.yearsExperienceLabel }}</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="fw-bold text-primary">{{ homeSections['why-choose']?.projectsCompleted }}</h3>
+                <p>{{ homeSections['why-choose']?.projectsCompletedLabel }}</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="fw-bold text-primary">{{ homeSections['why-choose']?.clientSatisfaction }}</h3>
+                <p>{{ homeSections['why-choose']?.clientSatisfactionLabel }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= PORTFOLIO ================= -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold" [innerHTML]="portfolioHeading | richText"></h2>
+        </div>
+        <div class="row g-4">
+            @for (item of portfolioItems; track item._id) {
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img [src]="getPortfolioImage(item)" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="fw-bold" [innerHTML]="item.title | richText"></h5>
+                            <p class="text-muted" [innerHTML]="item.summary | richText"></p>
+                            <a [routerLink]="['/portfolio', item.slug]" class="btn btn-outline-primary btn-sm">
+                                {{ getPortfolioCardButtonText(item) }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-4">
+            @if (isPortfolioSectionButtonExternal) {
+            <a [href]="portfolioSectionButtonLink" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                {{ portfolioSectionButtonText }}
+            </a>
+            } @else {
+            <a [routerLink]="portfolioSectionButtonLink" class="btn btn-primary">
+                {{ portfolioSectionButtonText }}
+            </a>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="pb-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold" [innerHTML]="testimonialsHeading | richText"></h2>
+        </div>
+        <div class="row g-4">
+            @for (item of testimonialItems; track $index) {
+                <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4">
+                        <p class="text-muted" [innerHTML]="(item.message ? ('&ldquo;' + item.message + '&rdquo;') : '') | richText"></p>
+                        <h6 class="fw-bold mt-3">{{ item.name }}</h6>
+                        <small class="text-muted">{{ item.position }}</small>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">{{ homeSections['pricing']?.heading }}</h2>
+        </div>
+        <div class="row g-4">
+            @for (plan of pricingPlans; track plan.name) {
+                <div class="col-md-4">
+                    <div class="card border-0 shadow h-100 text-center p-4">
+                        <h5 class="fw-bold">{{ plan.name }}</h5>
+                        <h2 class="text-primary my-3">{{ plan.price }}</h2>
+                        <ul class="list-unstyled text-muted mb-4">
+                            @for (feature of plan.features || []; track feature) {
+                            <li>{{ feature }}</li>
+                            }
+                        </ul>
+                        @if (isPricingPlanButtonExternal(plan)) {
+                        <a [href]="getPricingPlanButtonLink(plan)" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                            {{ getPricingPlanButtonText(plan) }}
+                        </a>
+                        } @else {
+                        <a [routerLink]="getPricingPlanButtonLink(plan)" class="btn btn-primary">
+                            {{ getPricingPlanButtonText(plan) }}
+                        </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= BLOG ================= -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold" [innerHTML]="blogHeading | richText"></h2>
+        </div>
+        <div class="row g-4">
+            @for (post of blogItems; track post._id) {
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img [src]="getBlogImage(post)" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="fw-bold" [innerHTML]="post.title | richText"></h5>
+                            <p class="text-muted" [innerHTML]="post.summary | richText"></p>
+                            @if (isBlogCardButtonExternal(post)) {
+                            <a [href]="getBlogCardButtonLink(post)" class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener noreferrer">
+                                {{ getBlogCardButtonText(post) }}
+                            </a>
+                            } @else {
+                            <a [routerLink]="getBlogCardButtonLink(post)" class="btn btn-sm btn-outline-primary">
+                                {{ getBlogCardButtonText(post) }}
+                            </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section text-white text-center py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-4">{{ homeSections['cta']?.title }}</h2>
+        @if (isHomeCtaExternal) {
+        <a [href]="homeCtaButtonLink" class="btn btn-light btn-lg" target="_blank" rel="noopener noreferrer">
+            {{ homeSections['cta']?.buttonText }}
+        </a>
+        } @else {
+        <a [routerLink]="homeCtaButtonLink" class="btn btn-light btn-lg">
+            {{ homeSections['cta']?.buttonText }}
+        </a>
+        }
+    </div>
+</section>
+}
+
+<app-footer />

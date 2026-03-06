@@ -1,0 +1,53 @@
+<app-header />
+
+<!-- ================= PAGE BANNER ================= -->
+<section class="page-banner text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+            <p class="lead" [innerHTML]="sections['banner']?.subtitle | richText"></p>
+        </div>
+</section>
+
+<!-- ================= PRICING CARDS ================= -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            @for (plan of sections['plans']?.items || []; track plan.name) {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm text-center h-100 p-4">
+                        <h4 class="fw-bold mb-3" [innerHTML]="plan.name | richText"></h4>
+                        <h2 class="fw-bold text-primary mb-3" [innerHTML]="plan.price | richText"></h2>
+                        <ul class="list-group list-group-flush mb-3">
+                            @for (feature of plan.features; track feature) {
+                                <li class="list-group-item" [innerHTML]="feature | richText"></li>
+                            }
+                        </ul>
+                        @if (isExternalLink(getPlanButtonLink(plan))) {
+                            <a [href]="getPlanButtonLink(plan)" class="btn btn-primary btn-lg" target="_blank" rel="noopener noreferrer">
+                                {{ getPlanButtonText(plan) }}
+                            </a>
+                        } @else {
+                            <a [routerLink]="getPlanButtonLink(plan)" class="btn btn-primary btn-lg">
+                                {{ getPlanButtonText(plan) }}
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section text-white text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4" [innerHTML]="sections['cta']?.title | richText"></h2>
+            @if (isExternalCtaLink()) {
+                <a [href]="ctaLink" class="btn btn-light btn-lg" target="_blank" rel="noopener noreferrer" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            } @else {
+                <a [routerLink]="ctaLink" class="btn btn-light btn-lg" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            }
+        </div>
+</section>
+
+<app-footer />

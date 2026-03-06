@@ -1,0 +1,42 @@
+<app-header />
+
+<!-- ================= PAGE BANNER ================= -->
+<section class="page-banner text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+            <p class="lead" [innerHTML]="sections['banner']?.subtitle | richText"></p>
+        </div>
+</section>
+
+<!-- ================= TESTIMONIALS GRID ================= -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+            @for (testimonial of testimonialItems; track testimonial.name) {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm p-4 h-100 text-center">
+                        <img [src]="testimonial.photo" class="rounded-circle mb-3 mx-auto" width="80" alt="Client Photo">
+                        <div class="text-muted" [innerHTML]="testimonial.message | richText"></div>
+                        <h6 class="fw-bold">{{testimonial.name}}</h6>
+                        <small class="text-muted">{{testimonial.position}}</small>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section text-white text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4" [innerHTML]="sections['cta']?.title | richText"></h2>
+            <p class="lead mb-4" [innerHTML]="sections['cta']?.subtitle | richText"></p>
+            @if (isExternalCtaLink()) {
+                <a [href]="ctaLink" class="btn btn-light btn-lg" target="_blank" rel="noopener noreferrer" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            } @else {
+                <a [routerLink]="ctaLink" class="btn btn-light btn-lg" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            }
+        </div>
+</section>
+
+<app-footer />

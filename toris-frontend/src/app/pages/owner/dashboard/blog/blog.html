@@ -1,0 +1,129 @@
+<div class="card border-0 shadow-sm p-4">
+    <h3 class="mb-4">CMS Content Manager</h3>
+    <p class="text-muted mb-4">Manage blogs, services, and portfolio items in one place.</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label d-block">Content Type</label>
+            <div class="btn-group" role="tablist" aria-label="Content type tabs">
+                <button type="button" class="btn"
+                    [class.btn-primary]="form.value.section === 'Blog'"
+                    [class.btn-outline-primary]="form.value.section !== 'Blog'"
+                    (click)="onTypeChange('Blog')">
+                    Blog
+                </button>
+                <button type="button" class="btn"
+                    [class.btn-primary]="form.value.section === 'Services'"
+                    [class.btn-outline-primary]="form.value.section !== 'Services'"
+                    (click)="onTypeChange('Services')">
+                    Services
+                </button>
+                <button type="button" class="btn"
+                    [class.btn-primary]="form.value.section === 'Portfolio'"
+                    [class.btn-outline-primary]="form.value.section !== 'Portfolio'"
+                    (click)="onTypeChange('Portfolio')">
+                    Portfolio
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <input type="hidden" formControlName="section">
+            <div class="col-md-12">
+                <label class="form-label">Title</label>
+                <input type="text" class="form-control" formControlName="title">
+            </div>
+            <div class="col-md-12">
+                <label class="form-label">Slug</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    formControlName="slug"
+                    placeholder="auto-generated from title"
+                    (input)="onSlugInput($any($event.target).value)"
+                >
+                @if (slugControl?.errors?.['slugTaken']) {
+                    <div class="mt-2">
+                        <div class="alert alert-warning py-2 mb-0">This slug is already taken.</div>
+                    </div>
+                }
+                <div class="form-text">Will follow the title unless you edit it manually.</div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Summary</label>
+                <textarea class="form-control" rows="4" formControlName="summary"></textarea>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Status</label>
+                <select class="form-select" formControlName="status">
+                    <option>Draft</option>
+                    <option>Published</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Order</label>
+                <input type="number" class="form-control" formControlName="order" min="0">
+                <div class="form-text">Lower numbers appear earlier.</div>
+            </div>
+            <app-owner-cms-fields
+                [type]="cmsType"
+                [form]="form"
+                [uploadError]="uploadError"
+                [isUploadingImage]="isUploadingImage"
+                (imageSelected)="onImageSelected($event)">
+            </app-owner-cms-fields>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+                {{ editingId ? 'Update Content' : 'Create Content' }}
+            </button>
+            @if (editingId) {
+                <button class="btn btn-secondary" type="button" (click)="cancelEdit()">Cancel Edit</button>
+            }
+        </div>
+    </form>
+
+    <hr class="my-4">
+
+    <h5 class="mb-3">Existing {{ form.value.section }} Items</h5>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th style="width: 180px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of items; track item._id) {
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.status }}</td>
+                        <td>{{ item.createdAt | date:'mediumDate' }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-2" (click)="startEdit(item)">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="deleteItem(item)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+            Showing {{ items.length }} of {{ totalItems }} items
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-outline-secondary" type="button" (click)="changePage(-1)" [disabled]="currentPage <= 1">
+                Previous
+            </button>
+            <button class="btn btn-outline-secondary" type="button" (click)="changePage(1)" [disabled]="currentPage >= totalPages">
+                Next
+            </button>
+        </div>
+    </div>
+</div>

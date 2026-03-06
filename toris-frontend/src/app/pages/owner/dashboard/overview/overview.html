@@ -1,0 +1,315 @@
+<h2 class="fw-bold mb-4">Owner Dashboard Overview</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-3">
+            <h6 class="text-muted mb-2">Role</h6>
+            <h5 class="mb-0">Owner (Full Control)</h5>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-3">
+            <h6 class="text-muted mb-2">Managed Admins</h6>
+            <h5 class="mb-0">{{ admins.length }}</h5>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-3">
+            <h6 class="text-muted mb-2">Managed Users</h6>
+            <h5 class="mb-0">{{ users.length }}</h5>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm p-4">
+    <h4 class="mb-3">Admin Account Management</h4>
+
+    <form [formGroup]="adminForm" (ngSubmit)="onCreateAdmin()" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="Admin name" formControlName="name">
+        </div>
+        <div class="col-md-4">
+            <input type="email" class="form-control" placeholder="Admin email" formControlName="email">
+        </div>
+        <div class="col-md-4">
+            <input type="password" class="form-control" placeholder="Admin password" formControlName="password">
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success" type="submit" [disabled]="adminForm.invalid">Create Admin</button>
+        </div>
+    </form>
+
+    <div class="row g-2 mb-3">
+        <div class="col-md-5">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search by name or email"
+                [ngModel]="adminSearchTerm"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onAdminSearchTermChange($event)"
+            >
+        </div>
+        <div class="col-md-3">
+            <select
+                class="form-select"
+                [ngModel]="adminStatusFilter"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onAdminStatusFilterChange($event)"
+            >
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="blocked">Blocked</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select
+                class="form-select"
+                [ngModel]="adminPageSize"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onAdminPageSizeChange($event)"
+            >
+                <option [ngValue]="5">5 / page</option>
+                <option [ngValue]="10">10 / page</option>
+                <option [ngValue]="20">20 / page</option>
+            </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-center justify-content-md-end text-muted small">
+            {{ adminFilteredCount }} result(s)
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th style="width: 240px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (admin of pagedAdmins; track admin._id || admin.id || $index) {
+                    <tr>
+                        <td>
+                            <input class="form-control" [(ngModel)]="admin.name" [ngModelOptions]="{standalone: true}" [readonly]="editingAdminId !== admin._id">
+                        </td>
+                        <td>
+                            <input class="form-control" [(ngModel)]="admin.email" [ngModelOptions]="{standalone: true}" [readonly]="editingAdminId !== admin._id">
+                        </td>
+                        <td>
+                            <span class="badge" [class.bg-danger]="admin.isBlocked" [class.bg-success]="!admin.isBlocked">
+                                {{ admin.isBlocked ? 'Blocked' : 'Active' }}
+                            </span>
+                        </td>
+                        <td>
+                            @if (editingAdminId === admin._id) {
+                                <button class="btn btn-sm btn-primary me-2" (click)="onSaveAdmin(admin)">Save</button>
+                                <button class="btn btn-sm btn-secondary me-2" (click)="cancelEditAdmin()">Cancel</button>
+                            } @else {
+                                <button class="btn btn-sm btn-outline-primary me-2" (click)="startEditAdmin(admin)">Edit</button>
+                            }
+                            <button class="btn btn-sm btn-outline-warning me-2" (click)="onToggleAdminBlock(admin)">
+                                {{ admin.isBlocked ? 'Unblock' : 'Block' }}
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="onDeleteAdmin(admin)">Delete</button>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">No admins found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-end align-items-center gap-2 mt-3">
+        <button class="btn btn-sm btn-outline-secondary" (click)="goToAdminPage(adminPage - 1)" [disabled]="adminPage <= 1">
+            Prev
+        </button>
+        <span class="small text-muted">Page {{ adminPage }} / {{ adminTotalPages }}</span>
+        <button class="btn btn-sm btn-outline-secondary" (click)="goToAdminPage(adminPage + 1)" [disabled]="adminPage >= adminTotalPages">
+            Next
+        </button>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm p-4 mt-4">
+    <h4 class="mb-3">User Account Management</h4>
+
+    <div class="row g-2 mb-3">
+        <div class="col-md-5">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search by name or email"
+                [ngModel]="userSearchTerm"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onUserSearchTermChange($event)"
+            >
+        </div>
+        <div class="col-md-3">
+            <select
+                class="form-select"
+                [ngModel]="userStatusFilter"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onUserStatusFilterChange($event)"
+            >
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="blocked">Blocked</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select
+                class="form-select"
+                [ngModel]="userPageSize"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onUserPageSizeChange($event)"
+            >
+                <option [ngValue]="5">5 / page</option>
+                <option [ngValue]="10">10 / page</option>
+                <option [ngValue]="20">20 / page</option>
+            </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-center justify-content-md-end text-muted small">
+            {{ userFilteredCount }} result(s)
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th style="width: 200px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of pagedUsers; track user._id || user.id || $index) {
+                    <tr>
+                        <td>{{ user.name || '-' }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <span class="badge" [class.bg-danger]="user.isBlocked" [class.bg-success]="!user.isBlocked">
+                                {{ user.isBlocked ? 'Blocked' : 'Active' }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-warning me-2" (click)="onToggleUserBlock(user)">
+                                {{ user.isBlocked ? 'Unblock' : 'Block' }}
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" (click)="onDeleteUser(user)">Delete</button>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">No users found.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-end align-items-center gap-2 mt-3">
+        <button class="btn btn-sm btn-outline-secondary" (click)="goToUserPage(userPage - 1)" [disabled]="userPage <= 1">
+            Prev
+        </button>
+        <span class="small text-muted">Page {{ userPage }} / {{ userTotalPages }}</span>
+        <button class="btn btn-sm btn-outline-secondary" (click)="goToUserPage(userPage + 1)" [disabled]="userPage >= userTotalPages">
+            Next
+        </button>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm p-4 mt-4">
+    <h4 class="mb-3">Contact Submissions</h4>
+
+    <div class="row g-2 mb-3">
+        <div class="col-md-6">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search by name, email, subject"
+                [ngModel]="contactSearch"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onContactSearchChange($event)"
+            >
+        </div>
+        <div class="col-md-3">
+            <select
+                class="form-select"
+                [ngModel]="contactStatus"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onContactStatusChange($event)"
+            >
+                <option value="all">All Status</option>
+                <option value="new">New</option>
+                <option value="read">Read</option>
+                <option value="archived">Archived</option>
+            </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-center justify-content-md-end text-muted small">
+            {{ contactTotal }} total
+        </div>
+    </div>
+
+    @if (contactLoading) {
+        <div class="text-muted py-3">Loading submissions...</div>
+    } @else if (contactError) {
+        <div class="alert alert-danger py-2">{{ contactError }}</div>
+    } @else {
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                        <th style="width: 240px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of contactItems; track item._id) {
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.subject }}</td>
+                            <td>
+                                <span class="badge bg-secondary text-uppercase">{{ item.status }}</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary me-2" (click)="setContactItemStatus(item, 'read')">Mark Read</button>
+                                <button class="btn btn-sm btn-outline-secondary me-2" (click)="setContactItemStatus(item, 'new')">Mark New</button>
+                                <button class="btn btn-sm btn-outline-dark" (click)="setContactItemStatus(item, 'archived')">Archive</button>
+                            </td>
+                        </tr>
+                    } @empty {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">No contact submissions found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div class="d-flex justify-content-end align-items-center gap-2 mt-3">
+        <button class="btn btn-sm btn-outline-secondary" (click)="goToContactPage(contactPage - 1)" [disabled]="contactPage <= 1">
+            Prev
+        </button>
+        <span class="small text-muted">Page {{ contactPage }} / {{ contactTotalPages }}</span>
+        <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="goToContactPage(contactPage + 1)"
+            [disabled]="contactPage >= contactTotalPages"
+        >
+            Next
+        </button>
+    </div>
+</div>

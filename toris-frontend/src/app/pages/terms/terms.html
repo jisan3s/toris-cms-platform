@@ -1,0 +1,15 @@
+<app-header />
+
+<section class="bg-dark text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+        </div>
+</section>
+
+<section class="py-5">
+        <div class="container">
+            <div class="text-muted" [innerHTML]="sections['content']?.body | richText"></div>
+        </div>
+</section>
+
+<app-footer />

@@ -1,0 +1,31 @@
+.card {
+    max-width: 1024px;
+    border-radius: 20px;
+}
+
+.border.rounded {
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbf6 100%);
+    border-color: #d6e4da !important;
+    border-radius: 14px !important;
+}
+
+.rich-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.rich-editor {
+    min-height: 140px;
+    white-space: pre-wrap;
+    overflow: auto;
+}
+
+.form-label {
+    font-weight: 700;
+    color: #2e5142;
+}
+
+.btn-sm {
+    border-radius: 999px;
+}

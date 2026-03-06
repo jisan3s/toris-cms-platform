@@ -1,0 +1,53 @@
+.page-banner {
+    background:
+        radial-gradient(circle at 82% 20%, rgba(255, 255, 255, 0.22), transparent 44%),
+        linear-gradient(128deg, #173f32 0%, #1f7a61 54%, #2f9a79 100%);
+}
+
+.cta-section {
+    background:
+        radial-gradient(circle at 15% 8%, rgba(255, 255, 255, 0.15), transparent 43%),
+        linear-gradient(130deg, #214d3d, #0f8c6f);
+}
+
+img.rounded {
+    border-radius: 22px !important;
+    box-shadow: 0 18px 40px rgba(16, 36, 25, 0.18) !important;
+}
+
+.card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px rgba(16, 36, 25, 0.14);
+}
+
+.rounded-circle {
+    border: 3px solid rgba(15, 140, 111, 0.2);
+}
+
+.why-choose-intro {
+    max-width: 760px;
+    margin: 0.75rem auto 0;
+}
+
+.why-choose-item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.why-choose-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #0f8c6f, #2f9a79);
+    flex-shrink: 0;
+}

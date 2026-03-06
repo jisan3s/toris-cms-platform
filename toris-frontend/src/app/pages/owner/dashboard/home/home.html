@@ -1,0 +1,345 @@
+<div class="card border-0 shadow-sm p-4">
+    <h3 class="mb-4">Homepage Content Editor</h3>
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        @for (section of sections; track section.key) {
+        <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-primary]="activeSection === section.key"
+            [class.btn-outline-primary]="activeSection !== section.key"
+            (click)="setActiveSection(section.key)"
+        >
+            {{ section.label }}
+        </button>
+        }
+    </div>
+
+    @if (sectionMessage) {
+    <div class="alert alert-success py-2" role="alert">
+        {{ sectionMessage }}
+    </div>
+    }
+    @if (sectionError) {
+    <div class="alert alert-danger py-2" role="alert">
+        {{ sectionError }}
+    </div>
+    }
+    @if (uploadError) {
+    <div class="alert alert-warning py-2" role="alert">
+        {{ uploadError }}
+    </div>
+    }
+
+    <form [formGroup]="form">
+        @if (activeSection === 'hero') {
+        <div class="editor-section">
+        <h5 class="mb-3">Hero Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" formControlName="heroTitle" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Subtitle</label>
+            <input type="text" class="form-control" formControlName="heroSubtitle" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <app-rich-text-editor formControlName="heroDescription"></app-rich-text-editor>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Button Text</label>
+            <input type="text" class="form-control" formControlName="heroButtonText" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Button Link</label>
+            <input type="text" class="form-control" formControlName="heroButtonLink" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Banner Image URL</label>
+            <input type="text" class="form-control" formControlName="heroImage" />
+            <div class="mt-2 d-flex align-items-center gap-2">
+                <input
+                    type="file"
+                    class="form-control form-control-sm"
+                    accept="image/*"
+                    (change)="onImageSelected('heroImage', $event)"
+                />
+                @if (uploadState['heroImage']) {
+                <span class="text-muted small">Uploading...</span>
+                }
+            </div>
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('hero') || sectionSavingState['hero']"
+            (click)="saveSection('hero')"
+        >
+            Save Hero
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'clients') {
+        <div class="editor-section">
+        <h5 class="mb-3">Clients Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Clients Title</label>
+            <input type="text" class="form-control" formControlName="clientsTitle" />
+        </div>
+        <div formArrayName="clientsLogos" class="d-grid gap-3">
+            @for (logoCtrl of clientsLogos.controls; track logoCtrl; let i = $index) {
+            <div class="border rounded p-3">
+                <label class="form-label">Logo {{ i + 1 }} URL/Path</label>
+                <input type="text" class="form-control" [formControlName]="i" />
+                <div class="mt-2 d-flex align-items-center gap-2">
+                    <input
+                        type="file"
+                        class="form-control form-control-sm"
+                        accept="image/*"
+                        (change)="onClientLogoSelected(i, $event)"
+                    />
+                    @if (uploadState['clientsLogo-' + i]) {
+                    <span class="text-muted small">Uploading...</span>
+                    }
+                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeClientLogo(i)">Remove</button>
+                </div>
+            </div>
+            }
+        </div>
+        <button type="button" class="btn btn-outline-secondary btn-sm mt-3" (click)="addClientLogo()">
+            Add Logo
+        </button>
+        <br>
+        <button
+            class="btn btn-primary mt-3"
+            type="button"
+            [disabled]="isSectionInvalid('clients') || sectionSavingState['clients']"
+            (click)="saveSection('clients')"
+        >
+            Save Clients
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'about-preview') {
+        <div class="editor-section">
+        <h5 class="mb-3">About Preview Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-control" formControlName="aboutHeading" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <app-rich-text-editor formControlName="aboutDescription"></app-rich-text-editor>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Button Text</label>
+            <input type="text" class="form-control" formControlName="aboutButtonText" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Button Link</label>
+            <input type="text" class="form-control" formControlName="aboutButtonLink" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Image URL/Path</label>
+            <input type="text" class="form-control" formControlName="aboutImage" />
+            <div class="mt-2 d-flex align-items-center gap-2">
+                <input
+                    type="file"
+                    class="form-control form-control-sm"
+                    accept="image/*"
+                    (change)="onImageSelected('aboutImage', $event)"
+                />
+                @if (uploadState['aboutImage']) {
+                <span class="text-muted small">Uploading...</span>
+                }
+            </div>
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('about-preview') || sectionSavingState['about-preview']"
+            (click)="saveSection('about-preview')"
+        >
+            Save About Preview
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'why-choose') {
+        <div class="editor-section">
+        <h5 class="mb-3">Why Choose Us Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Subtitle</label>
+            <app-rich-text-editor formControlName="whyChooseSubtitle"></app-rich-text-editor>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label">Number</label>
+                <input type="text" class="form-control" formControlName="yearsExperience" placeholder="e.g. 10+" />
+                <label class="form-label mt-2">Title</label>
+                <input type="text" class="form-control" formControlName="yearsExperienceLabel" placeholder="e.g. Years Experience" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Number</label>
+                <input type="text" class="form-control" formControlName="projectsCompleted" placeholder="e.g. 300+" />
+                <label class="form-label mt-2">Title</label>
+                <input type="text" class="form-control" formControlName="projectsCompletedLabel" placeholder="e.g. Completed Projects" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Number</label>
+                <input type="text" class="form-control" formControlName="clientSatisfaction" placeholder="e.g. 95%" />
+                <label class="form-label mt-2">Title</label>
+                <input type="text" class="form-control" formControlName="clientSatisfactionLabel" placeholder="e.g. Client Satisfaction" />
+            </div>
+        </div>
+        <button
+            class="btn btn-primary mt-3"
+            type="button"
+            [disabled]="isSectionInvalid('why-choose') || sectionSavingState['why-choose']"
+            (click)="saveSection('why-choose')"
+        >
+            Save Why Choose
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'testimonials') {
+        <div class="editor-section">
+        <h5 class="mb-3">Testimonials Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-control" formControlName="testimonialsHeading" />
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('testimonials') || sectionSavingState['testimonials']"
+            (click)="saveSection('testimonials')"
+        >
+            Save Testimonials
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'pricing') {
+        <div class="editor-section">
+        <h5 class="mb-3">Pricing Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-control" formControlName="pricingHeading" />
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('pricing') || sectionSavingState['pricing']"
+            (click)="saveSection('pricing')"
+        >
+            Save Pricing
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'services') {
+        <div class="editor-section">
+        <h5 class="mb-3">Services Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-control" formControlName="servicesHeading" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Subtitle</label>
+            <input type="text" class="form-control" formControlName="servicesSubtitle" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Section Button Text</label>
+            <input type="text" class="form-control" formControlName="servicesSectionButtonText" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Section Button Link</label>
+            <input type="text" class="form-control" formControlName="servicesSectionButtonLink" placeholder="/services" />
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('services') || sectionSavingState['services']"
+            (click)="saveSection('services')"
+        >
+            Save Services
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'portfolio') {
+        <div class="editor-section">
+        <h5 class="mb-3">Portfolio Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-control" formControlName="portfolioHeading" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Section Button Text</label>
+            <input type="text" class="form-control" formControlName="portfolioSectionButtonText" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Section Button Link</label>
+            <input type="text" class="form-control" formControlName="portfolioSectionButtonLink" placeholder="/portfolio" />
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('portfolio') || sectionSavingState['portfolio']"
+            (click)="saveSection('portfolio')"
+        >
+            Save Portfolio
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'blog') {
+        <div class="editor-section">
+        <h5 class="mb-3">Blog Section</h5>
+        <div class="mb-3">
+            <label class="form-label">Heading</label>
+            <input type="text" class="form-control" formControlName="blogHeading" />
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('blog') || sectionSavingState['blog']"
+            (click)="saveSection('blog')"
+        >
+            Save Blog
+        </button>
+        </div>
+        }
+
+        @if (activeSection === 'cta') {
+        <div class="editor-section">
+        <h5 class="mb-3">CTA Section</h5>
+        <div class="mb-3">
+            <label class="form-label">CTA Title</label>
+            <input type="text" class="form-control" formControlName="ctaTitle" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CTA Button Text</label>
+            <input type="text" class="form-control" formControlName="ctaButtonText" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">CTA Button Link</label>
+            <input type="text" class="form-control" formControlName="ctaButtonLink" />
+        </div>
+        <button
+            class="btn btn-primary"
+            type="button"
+            [disabled]="isSectionInvalid('cta') || sectionSavingState['cta']"
+            (click)="saveSection('cta')"
+        >
+            Save CTA
+        </button>
+        </div>
+        }
+    </form>
+</div>

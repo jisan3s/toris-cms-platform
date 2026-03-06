@@ -1,0 +1,24 @@
+<div class="card border-0 shadow-sm p-4">
+    <h3 class="mb-4">About Page Editor</h3>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label class="form-label">Main Heading</label>
+            <input type="text" class="form-control" formControlName="heading">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Subheading</label>
+            <input type="text" class="form-control" formControlName="subheading">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Body Content</label>
+            <app-rich-text-editor formControlName="body"></app-rich-text-editor>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Image URL</label>
+            <input type="text" class="form-control" formControlName="image">
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Save About Page</button>
+    </form>
+</div>

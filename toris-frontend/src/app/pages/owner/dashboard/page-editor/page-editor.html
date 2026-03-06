@@ -1,0 +1,166 @@
+<div class="card border-0 shadow-sm p-4">
+    <h3 class="mb-2">{{ pageConfig?.label || 'Page' }} Content Editor</h3>
+    <p class="text-muted mb-4">Edit content using simple fields and save each section separately.</p>
+
+    @if (!pageConfig) {
+    <div class="alert alert-danger mb-0">
+        Invalid page route.
+    </div>
+    } @else {
+    <div class="d-flex flex-wrap gap-2 mb-4">
+        @for (section of sections; track section.key) {
+        <button
+            type="button"
+            class="btn btn-sm"
+            [class.btn-primary]="activeSection === section.key"
+            [class.btn-outline-primary]="activeSection !== section.key"
+            (click)="setActiveSection(section.key)"
+        >
+            {{ section.label }}
+        </button>
+        }
+    </div>
+
+    @if (sectionMessage) {
+    <div class="alert alert-success py-2">
+        {{ sectionMessage }}
+    </div>
+    }
+    @if (sectionError) {
+    <div class="alert alert-danger py-2">
+        {{ sectionError }}
+    </div>
+    }
+    @if (uploadError) {
+    <div class="alert alert-warning py-2">
+        {{ uploadError }}
+    </div>
+    }
+
+    <form [formGroup]="sectionForm">
+        @if (activeSectionConfig) {
+            @for (field of activeSectionConfig.fields; track field.key) {
+                @if (field.type === 'text' && hasControl(field.key)) {
+                <div class="mb-3">
+                    <label class="form-label">{{ field.label }}</label>
+                    <input type="text" class="form-control" [formControlName]="field.key" />
+                    @if (isImageField(field.key, field.label)) {
+                    <div class="mt-2 d-flex align-items-center gap-2">
+                        <input
+                            type="file"
+                            class="form-control form-control-sm"
+                            accept="image/*"
+                            (change)="onImageSelected(field.key, $event)"
+                        />
+                        @if (uploadState[field.key]) {
+                        <span class="text-muted small">Uploading...</span>
+                        }
+                    </div>
+                    }
+                </div>
+                }
+
+                @if (field.type === 'textarea' && hasControl(field.key)) {
+                <div class="mb-3">
+                    <label class="form-label">{{ field.label }}</label>
+                    @if (field.richText) {
+                    <app-rich-text-editor [formControlName]="field.key"></app-rich-text-editor>
+                    } @else {
+                    <textarea class="form-control" [rows]="field.rows || 4" [formControlName]="field.key"></textarea>
+                    }
+                </div>
+                }
+
+                @if (field.type === 'string-list' && hasControl(field.key)) {
+                <div class="mb-3">
+                    <label class="form-label d-block">{{ field.label }}</label>
+                    <div [formArrayName]="field.key" class="d-grid gap-2">
+                        @for (ctrl of getStringListArray(field.key).controls; track ctrl; let i = $index) {
+                        <div class="d-flex gap-2 align-items-start">
+                            <input type="text" class="form-control" [formControlName]="i" />
+                            <button type="button" class="btn btn-outline-danger" (click)="removeStringListItem(field.key, i)">Remove</button>
+                        </div>
+                        }
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary btn-sm mt-2" (click)="addStringListItem(field.key)">
+                        Add Item
+                    </button>
+                </div>
+                }
+
+                @if (field.type === 'object-list' && hasControl(field.key)) {
+                <div class="mb-3">
+                    <label class="form-label d-block">{{ field.label }}</label>
+                    @if (isGlobalHeaderEditor() && field.key === 'items') {
+                    <div class="alert alert-light border py-2">
+                        <div class="small fw-semibold mb-2">Route Suggestions (kept in sync with managed pages)</div>
+                        <div class="d-flex flex-wrap gap-2">
+                            @for (suggestion of navRouteSuggestions; track suggestion.path) {
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm"
+                                (click)="addNavItemSuggestion(suggestion)"
+                            >
+                                Add {{ suggestion.label }} ({{ suggestion.path }})
+                            </button>
+                            }
+                        </div>
+                    </div>
+                    }
+                    <div [formArrayName]="field.key" class="d-grid gap-3">
+                        @for (row of getObjectListArray(field.key).controls; track row; let i = $index) {
+                        <div class="border rounded p-3" [formGroupName]="i">
+                            <div class="row g-3">
+                                @for (itemField of field.itemFields || []; track itemField.key) {
+                                <div class="col-12">
+                                    <label class="form-label">{{ itemField.label }}</label>
+                                    @if (itemField.type === 'textarea') {
+                                    @if (itemField.richText) {
+                                    <app-rich-text-editor [formControlName]="itemField.key"></app-rich-text-editor>
+                                    } @else {
+                                    <textarea class="form-control" [rows]="itemField.rows || 4" [formControlName]="itemField.key"></textarea>
+                                    }
+                                    } @else {
+                                    <input type="text" class="form-control" [formControlName]="itemField.key" />
+                                    @if (isImageField(itemField.key, itemField.label)) {
+                                    <div class="mt-2 d-flex align-items-center gap-2">
+                                        <input
+                                            type="file"
+                                            class="form-control form-control-sm"
+                                            accept="image/*"
+                                            (change)="onObjectImageSelected(field.key, i, itemField.key, $event)"
+                                        />
+                                        @if (uploadState[field.key + '-' + i + '-' + itemField.key]) {
+                                        <span class="text-muted small">Uploading...</span>
+                                        }
+                                    </div>
+                                    }
+                                    }
+                                </div>
+                                }
+                            </div>
+                            <button type="button" class="btn btn-outline-danger btn-sm mt-3" (click)="removeObjectListItem(field.key, i)">
+                                Remove
+                            </button>
+                        </div>
+                        }
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary btn-sm mt-2" (click)="addObjectListItem(field)">
+                        Add Item
+                    </button>
+                </div>
+                }
+            }
+        }
+    </form>
+
+    <button
+        class="btn btn-primary"
+        type="button"
+        [disabled]="isSaving"
+        (click)="saveActiveSection()"
+    >
+        {{ isSaving ? 'Saving...' : 'Save Section' }}
+    </button>
+    }
+</div>

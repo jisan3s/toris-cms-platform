@@ -1,0 +1,25 @@
+<section class="admin-login-wrapper py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 p-4">
+                    <h4 class="fw-bold mb-3 text-center">Admin Login</h4>
+                    <p class="text-muted small text-center mb-3">
+                        Only Admin accounts created by the Owner can access this page.
+                    </p>
+                    <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Admin Email" formControlName="email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Admin Password" formControlName="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid || isSubmitting">
+                            {{ isSubmitting ? 'Signing in...' : 'Login as Admin' }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

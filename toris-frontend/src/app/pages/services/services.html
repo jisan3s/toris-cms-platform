@@ -1,0 +1,50 @@
+<app-header />
+
+<section class="page-banner text-white text-center py-5">
+    <div class="container">
+        <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+        <p class="lead" [innerHTML]="sections['banner']?.subtitle | richText"></p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            @for (service of displayedServices; track service._id) {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100 text-center p-4">
+                        <div class="icon-box mb-4">
+                            <i class="{{ service.icon }} fs-1 text-primary"></i>
+                        </div>
+                        <h5 class="fw-bold">{{ service.title }}</h5>
+                        <div class="text-muted mb-3" [innerHTML]="service.summary | richText"></div>
+                        @if (service.slug) {
+                        <a [routerLink]="['/service-details', service.slug]" class="btn btn-outline-primary btn-sm">
+                            {{ getServiceCtaText(service) }}
+                        </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-5">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <button class="page-link" (click)="prevPage()">Prev</button>
+                    </li>
+                    @for (pageNumber of paginationSteps; track pageNumber) {
+                        <li class="page-item" [class.active]="pageNumber === currentPage">
+                            <button class="page-link" (click)="goToPage(pageNumber)">{{ pageNumber }}</button>
+                        </li>
+                    }
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <button class="page-link" (click)="nextPage()">Next</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<app-footer />

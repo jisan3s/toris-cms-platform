@@ -1,0 +1,37 @@
+<nav
+    class="navbar navbar-expand-lg navbar-light bg-white shadow-sm"
+    [style.background-image]="headerBackgroundStyle"
+    [class.has-bg-image]="!!backgroundImage"
+>
+    <div class="container">
+        <a class="navbar-brand fw-bold" routerLink="/">
+            @if (logo) {
+                <img [src]="logo" alt="Brand logo" class="brand-logo" />
+            } @else {
+                {{ brand }}
+            }
+        </a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="nav" class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                @for (item of items; track $index) {
+                <li class="nav-item">
+                    @if (
+                        item.path.startsWith('http://') ||
+                        item.path.startsWith('https://') ||
+                        item.path.startsWith('mailto:') ||
+                        item.path.startsWith('tel:') ||
+                        item.path.startsWith('#')
+                    ) {
+                    <a [href]="item.path" class="nav-link">{{ item.label }}</a>
+                    } @else {
+                    <a [routerLink]="item.path" class="nav-link">{{ item.label }}</a>
+                    }
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

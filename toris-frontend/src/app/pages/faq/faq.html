@@ -1,0 +1,53 @@
+<app-header />
+
+<!-- Page Banner -->
+<section class="bg-dark text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+            <p class="mb-0" [innerHTML]="sections['banner']?.subtitle | richText"></p>
+        </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="accordion" id="faqAccordion">
+            @for (item of sections['faqs']?.items || []; track item; let i = $index) {
+                <div class="accordion-item mb-3 border rounded">
+                    <h2 class="accordion-header">
+                        <button
+                            class="accordion-button"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#faq' + i"
+                        >
+                            <span [innerHTML]="item.question | richText"></span>
+                        </button>
+                    </h2>
+                    <div
+                        [id]="'faq' + i"
+                        class="accordion-collapse collapse"
+                        data-bs-parent="#faqAccordion"
+                    >
+                        <div class="accordion-body text-muted" [innerHTML]="item.answer | richText"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold" [innerHTML]="sections['cta']?.title | richText"></h2>
+            <p [innerHTML]="sections['cta']?.subtitle | richText"></p>
+            @if (isExternalCtaLink()) {
+                <a [href]="ctaLink" class="btn btn-light px-4" target="_blank" rel="noopener noreferrer" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            } @else {
+                <a [routerLink]="ctaLink" class="btn btn-light px-4" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            }
+        </div>
+</section>
+
+<app-footer />

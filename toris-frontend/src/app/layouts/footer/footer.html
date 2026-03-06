@@ -1,0 +1,27 @@
+<footer
+    class="bg-dark text-white py-4"
+    [style.background-image]="footerBackgroundStyle"
+    [class.has-bg-image]="!!backgroundImage"
+>
+    <div class="container text-center">
+        @if (logo) {
+            <img [src]="logo" alt="Footer logo" class="footer-logo mb-3" />
+        }
+        <h5>{{ title }}</h5>
+        <p>{{ subtitle }}</p>
+
+        @if (links.length) {
+            <div class="mb-3">
+                @for (item of links; track $index) {
+                    @if (isExternalLink(item.path)) {
+                        <a [href]="item.path" class="text-white" [class.me-3]="$index < links.length - 1">{{ item.label }}</a>
+                    } @else {
+                        <a [routerLink]="item.path" class="text-white" [class.me-3]="$index < links.length - 1">{{ item.label }}</a>
+                    }
+                }
+            </div>
+        }
+
+        <small>{{ copyright }}</small>
+    </div>
+</footer>

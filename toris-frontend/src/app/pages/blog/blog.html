@@ -1,0 +1,70 @@
+<app-header />
+
+<!-- ================= PAGE BANNER ================= -->
+<section class="page-banner text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="bannerTitle | richText"></h1>
+            <p class="lead" [innerHTML]="bannerSubtitle | richText"></p>
+        </div>
+</section>
+
+<!-- ================= BLOG GRID ================= -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            @for (post of displayedPosts; track post.slug) {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <img [src]="getPostImage(post)" class="card-img-top" alt="blog image">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">{{ post.category }}</span>
+                            <h5 class="card-title fw-bold" [innerHTML]="post.title | richText"></h5>
+                            <p class="text-muted" [innerHTML]="post.summary | richText"></p>
+                            @if (isExternalPostLink(post)) {
+                            <a [href]="getPostButtonLink(post)" class="btn btn-outline-primary btn-sm" target="_blank" rel="noopener noreferrer">
+                                {{ getPostButtonText(post) }}
+                            </a>
+                            } @else {
+                            <a [routerLink]="getPostButtonLink(post)" class="btn btn-outline-primary btn-sm">
+                                {{ getPostButtonText(post) }}
+                            </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center mt-5">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" [class.disabled]="currentPage === 1">
+                        <button class="page-link" (click)="prevPage()">Prev</button>
+                    </li>
+                    @for (pageNumber of paginationSteps; track pageNumber) {
+                        <li class="page-item" [class.active]="pageNumber === currentPage">
+                            <button class="page-link" (click)="goToPage(pageNumber)">{{ pageNumber }}</button>
+                        </li>
+                    }
+                    <li class="page-item" [class.disabled]="currentPage === totalPages">
+                        <button class="page-link" (click)="nextPage()">Next</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section text-white text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4" [innerHTML]="ctaTitle | richText"></h2>
+            <p class="lead mb-4" [innerHTML]="ctaSubtitle | richText"></p>
+            @if (isExternalCtaLink()) {
+                <a [href]="ctaButtonLink" class="btn btn-light btn-lg" target="_blank" rel="noopener noreferrer" [innerHTML]="ctaButtonText | richText"></a>
+            } @else {
+                <a [routerLink]="ctaButtonLink" class="btn btn-light btn-lg" [innerHTML]="ctaButtonText | richText"></a>
+            }
+        </div>
+</section>
+
+<app-footer />

@@ -1,0 +1,14 @@
+.bg-dark {
+    background:
+        radial-gradient(circle at 82% 20%, rgba(255, 255, 255, 0.22), transparent 44%),
+        linear-gradient(128deg, #173f32 0%, #1f7a61 54%, #2f9a79 100%) !important;
+}
+
+.card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 36px rgba(16, 36, 25, 0.14);
+}

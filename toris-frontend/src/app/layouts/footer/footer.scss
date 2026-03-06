@@ -1,0 +1,23 @@
+.bg-dark {
+    background: linear-gradient(145deg, #102a20 0%, #17372a 45%, #1d4534 100%) !important;
+}
+
+.has-bg-image {
+    background-size: cover;
+    background-position: center;
+}
+
+.footer-logo {
+    max-height: 56px;
+    width: auto;
+    object-fit: contain;
+}
+
+a {
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.82;
+}

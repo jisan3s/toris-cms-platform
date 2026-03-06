@@ -1,0 +1,66 @@
+{
+  "name": "toris-frontend",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "e2e": "playwright test",
+    "e2e:list": "playwright test --list",
+    "e2e:ui": "playwright test --ui",
+    "serve:ssr:toris-frontend": "node dist/toris-frontend/server/server.mjs",
+    "lint:eslint": "eslint . --ext .ts,.js",
+    "lint:types": "tsc -p tsconfig.app.json --noEmit",
+    "lint:template-sugar": "node scripts/check-template-sugar.js",
+    "lint": "npm run lint:eslint && npm run lint:types && npm run lint:template-sugar",
+    "deploy:check": "node scripts/deployment-check.js",
+    "deploy:check:strict": "node scripts/deployment-check.js --strict",
+    "deploy:check:strict:prod": "NODE_ENV=production TORIS_API_ORIGIN=https://api.yourdomain.com PORT=4000 node scripts/deployment-check.js --strict"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "dependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-server": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@angular/ssr": "^21.0.4",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "express": "^5.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.0.4",
+    "@angular/cli": "^21.0.4",
+    "@angular/compiler-cli": "^21.0.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.58.2",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
+    "eslint": "^10.0.2",
+    "globals": "^17.4.0",
+    "jsdom": "^27.1.0",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "^8.56.1",
+    "vitest": "^4.0.8"
+  }
+}

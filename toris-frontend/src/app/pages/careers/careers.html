@@ -1,0 +1,32 @@
+<app-header />
+
+<section class="bg-dark text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+            <p [innerHTML]="sections['banner']?.subtitle | richText"></p>
+        </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+        @for (job of sections['jobs']?.items || []; track job.title) {
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100 p-4 text-center">
+                    <h5 class="fw-bold">{{ job.title }}</h5>
+                    <p class="text-muted" [innerHTML]="(job.location + ' - ' + job.type) | richText"></p>
+                    @if (hasApplyLink(job)) {
+                    @if (isExternalApplyLink(job)) {
+                        <a [href]="getApplyLink(job)" class="btn btn-primary mt-2" target="_blank" rel="noopener noreferrer">{{ getApplyText(job) }}</a>
+                    } @else {
+                        <a [routerLink]="getApplyLink(job)" class="btn btn-primary mt-2">{{ getApplyText(job) }}</a>
+                    }
+                    }
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+</section>
+
+<app-footer />

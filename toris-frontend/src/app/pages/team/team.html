@@ -1,0 +1,47 @@
+<app-header />
+
+<!-- Page Banner -->
+<section class="bg-dark text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+            <p class="mb-0" [innerHTML]="sections['banner']?.subtitle | richText"></p>
+        </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            @for (member of members; track member.name) {
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm text-center h-100">
+                        <img
+                            [src]="member.image"
+                            class="card-img-top"
+                            alt="team member"
+                        />
+                        <div class="card-body">
+                            <h5 class="fw-bold" [innerHTML]="member.name | richText"></h5>
+                            <p class="text-muted mb-3" [innerHTML]="member.role | richText"></p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold" [innerHTML]="sections['cta']?.title | richText"></h2>
+            <p [innerHTML]="sections['cta']?.subtitle | richText"></p>
+            @if (isExternalCtaLink()) {
+                <a [href]="ctaLink" class="btn btn-light px-4" target="_blank" rel="noopener noreferrer" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            } @else {
+                <a [routerLink]="ctaLink" class="btn btn-light px-4" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            }
+        </div>
+</section>
+
+<app-footer />

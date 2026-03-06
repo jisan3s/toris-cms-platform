@@ -1,0 +1,44 @@
+<app-header />
+
+<!-- ================= PAGE BANNER ================= -->
+<section class="page-banner text-white text-center py-5">
+    <div class="container">
+        <h1 class="fw-bold" [innerHTML]="bannerTitle | richText"></h1>
+        <p class="lead" [innerHTML]="bannerSubtitle | richText"></p>
+    </div>
+</section>
+
+@if (service) {
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-6">
+                <img [src]="detailImage" class="img-fluid rounded shadow" alt="Service">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-4" [innerHTML]="service.title | richText"></h2>
+                <div class="text-muted" [innerHTML]="service.detailDescription | richText"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" [innerHTML]="sections['features']?.title | richText"></h2>
+        </div>
+        <div class="row g-4">
+            @for (feature of service.features || []; track feature) {
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm p-4 h-100 text-center">
+                        <h5 class="fw-bold mb-0">{{feature}}</h5>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+}
+
+<app-footer />

@@ -1,0 +1,71 @@
+<app-header />
+
+<!-- ================= PAGE BANNER ================= -->
+<section class="page-banner text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold" [innerHTML]="sections['banner']?.title | richText"></h1>
+            <p class="lead" [innerHTML]="sections['banner']?.subtitle | richText"></p>
+        </div>
+</section>
+
+<!-- ================= CONTACT INFO ================= -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-md-4">
+                <div class="p-4 border rounded shadow-sm">
+                    <h6 class="fw-bold" [innerHTML]="sections['info']?.addressTitle | richText"></h6>
+                    <p [innerHTML]="sections['info']?.address | richText"></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 border rounded shadow-sm">
+                    <h6 class="fw-bold" [innerHTML]="sections['info']?.emailTitle | richText"></h6>
+                    <p [innerHTML]="sections['info']?.email | richText"></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 border rounded shadow-sm">
+                    <h6 class="fw-bold" [innerHTML]="sections['info']?.phoneTitle | richText"></h6>
+                    <p [innerHTML]="sections['info']?.phone | richText"></p>
+                </div>
+            </div>
+        </div>
+        <!-- ================= CONTACT FORM ================= -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form [formGroup]="contactForm" (ngSubmit)="submitForm()">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Your Name" formControlName="name">
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Your Email" formControlName="email">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Subject" formControlName="subject">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" rows="5" placeholder="Message" formControlName="message"></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-lg w-100" [disabled]="contactForm.invalid || isSubmitting" type="submit">
+                        {{ isSubmitting ? 'Sending...' : 'Send Message' }}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-section text-white text-center py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4" [innerHTML]="sections['cta']?.title | richText"></h2>
+            @if (isExternalCtaLink()) {
+                <a [href]="ctaLink" class="btn btn-light btn-lg" target="_blank" rel="noopener noreferrer" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            } @else {
+                <a [routerLink]="ctaLink" class="btn btn-light btn-lg" [innerHTML]="sections['cta']?.buttonText | richText"></a>
+            }
+        </div>
+</section>
+
+<app-footer />

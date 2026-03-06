@@ -1,0 +1,22 @@
+<section class="owner-login-wrapper py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="card shadow-sm border-0 p-4">
+                    <h4 class="fw-bold mb-3 text-center">Owner Login</h4>
+                    <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Owner Email" formControlName="email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Owner Password" formControlName="password">
+                        </div>
+                        <button type="submit" class="btn btn-dark w-100" [disabled]="loginForm.invalid || isSubmitting">
+                            {{ isSubmitting ? 'Signing in...' : 'Login as Owner' }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
