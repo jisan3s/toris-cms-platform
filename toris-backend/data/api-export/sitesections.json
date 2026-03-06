@@ -1,0 +1,780 @@
+[
+  {
+    "_id": "69a86252a6bd4cc524546181",
+    "page": "home",
+    "section": "hero",
+    "__v": 0,
+    "createdAt": "2026-03-04T16:48:18.045Z",
+    "data": {
+      "title": "We Build Bold Brands That Stand Out",
+      "subtitle": "Creative Digital Agency",
+      "description": "We help businesses grow with innovative design, smart development, and result-driven digital marketing strategies.",
+      "buttonText": "Get Started",
+      "buttonLink": "/contact",
+      "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772642895/home/hero/iiuav0ogzm9hfknylnmg.jpg"
+    },
+    "updatedAt": "2026-03-05T19:43:28.407Z"
+  },
+  {
+    "_id": "69a88c0aa6bd4cc5245461e4",
+    "page": "home",
+    "section": "clients",
+    "__v": 0,
+    "createdAt": "2026-03-04T19:46:18.410Z",
+    "data": {
+      "title": "Trusted By Leading Brands",
+      "logos": [
+        "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772653569/home/clients/jvuppplvpboq5bpv2jj2.jpg",
+        "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772653569/home/clients/jvuppplvpboq5bpv2jj2.jpg",
+        "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772653569/home/clients/jvuppplvpboq5bpv2jj2.jpg",
+        "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772653569/home/clients/jvuppplvpboq5bpv2jj2.jpg",
+        "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772653569/home/clients/jvuppplvpboq5bpv2jj2.jpg",
+        "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772653569/home/clients/jvuppplvpboq5bpv2jj2.jpg"
+      ]
+    },
+    "updatedAt": "2026-03-04T19:46:36.614Z"
+  },
+  {
+    "_id": "69a88c49a6bd4cc5245461e5",
+    "page": "home",
+    "section": "about-preview",
+    "__v": 0,
+    "createdAt": "2026-03-04T19:47:21.292Z",
+    "data": {
+      "heading": "Creative Minds Delivering Digital Excellence",
+      "description": "We are a passionate team of designers, developers, and strategists dedicated to building impactful digital experiences. Our mission is to help businesses grow through innovative solutions, modern technology, and creative thinking.",
+      "buttonText": "Read More",
+      "buttonLink": "/about",
+      "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772653622/home/about-preview/vcohqpwqxjd4wvnjvemj.jpg"
+    },
+    "updatedAt": "2026-03-04T19:47:21.292Z"
+  },
+  {
+    "_id": "69a88caca6bd4cc5245461e6",
+    "section": "header",
+    "page": "global",
+    "__v": 0,
+    "createdAt": "2026-03-04T19:49:00.201Z",
+    "data": {
+      "brand": "Toris",
+      "logo": "",
+      "backgroundImage": "",
+      "items": [
+        {
+          "label": "Home",
+          "path": "/"
+        },
+        {
+          "label": "About",
+          "path": "/about"
+        },
+        {
+          "label": "Pricing",
+          "path": "/pricing"
+        },
+        {
+          "label": "Team",
+          "path": "/team"
+        },
+        {
+          "label": "Testimonials",
+          "path": "/testimonials"
+        },
+        {
+          "label": "Services",
+          "path": "/services"
+        },
+        {
+          "label": "Portfolio",
+          "path": "/portfolio"
+        },
+        {
+          "label": "Blog",
+          "path": "/blog"
+        },
+        {
+          "label": "Contact",
+          "path": "/contact"
+        }
+      ]
+    },
+    "updatedAt": "2026-03-04T19:49:00.201Z"
+  },
+  {
+    "_id": "69a88d02a6bd4cc5245461e8",
+    "page": "home",
+    "section": "services",
+    "__v": 0,
+    "createdAt": "2026-03-04T19:50:26.057Z",
+    "data": {
+      "heading": "Our Innovative Creative Solutions",
+      "subtitle": "We provide high-quality digital services designed to help your business grow, scale, and stand out in today’s competitive market.",
+      "sectionButtonText": "Explore All Services",
+      "sectionButtonLink": "/services"
+    },
+    "updatedAt": "2026-03-04T20:26:30.489Z"
+  },
+  {
+    "_id": "69a893a3a6bd4cc5245461ec",
+    "page": "home",
+    "section": "why-choose",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:18:43.174Z",
+    "data": {
+      "subtitle": "Numbers That Speak For Our Success",
+      "yearsExperience": "10+",
+      "yearsExperienceLabel": "Years Experience",
+      "projectsCompleted": "300+",
+      "projectsCompletedLabel": "Completed Projects",
+      "clientSatisfaction": "95%",
+      "clientSatisfactionLabel": "Client Satisfaction"
+    },
+    "updatedAt": "2026-03-04T20:18:43.174Z"
+  },
+  {
+    "_id": "69a8962ca6bd4cc5245461ee",
+    "page": "global",
+    "section": "footer",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:29:32.938Z",
+    "data": {
+      "title": "Toris",
+      "subtitle": "We are a creative digital agency delivering innovative solutions that help businesses grow, scale, and succeed in the modern digital landscape.",
+      "logo": "",
+      "backgroundImage": "",
+      "links": [
+        {
+          "label": "Privacy Policy",
+          "path": "/privacy"
+        },
+        {
+          "label": "Terms & Conditions",
+          "path": "/terms"
+        }
+      ],
+      "copyright": "© 2026 Toris. All Rights Reserved."
+    },
+    "updatedAt": "2026-03-04T20:29:56.861Z"
+  },
+  {
+    "_id": "69a8965ba6bd4cc5245461ef",
+    "page": "home",
+    "section": "cta",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:30:19.624Z",
+    "data": {
+      "title": "Take The Next Step Toward Success",
+      "buttonText": "Let’s Talk",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-04T20:30:19.624Z"
+  },
+  {
+    "_id": "69a8966aa6bd4cc5245461f1",
+    "page": "home",
+    "section": "blog",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:30:34.566Z",
+    "data": {
+      "heading": "Insights, Ideas & Industry Updates"
+    },
+    "updatedAt": "2026-03-04T20:30:34.566Z"
+  },
+  {
+    "_id": "69a89762a6bd4cc5245461f4",
+    "page": "home",
+    "section": "pricing",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:34:42.533Z",
+    "data": {
+      "heading": "Simple Pricing For Every Business"
+    },
+    "updatedAt": "2026-03-04T20:34:42.533Z"
+  },
+  {
+    "_id": "69a897a5a6bd4cc5245461f6",
+    "page": "pricing",
+    "section": "plans",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:35:49.306Z",
+    "data": {
+      "items": [
+        {
+          "name": "Basic Plan",
+          "price": "$199",
+          "features": [
+            "5 Page Website",
+            "Responsive Design",
+            "Basic SEO Optimization",
+            "Contact Form Integration",
+            "7 Days Delivery"
+          ],
+          "buttonText": "Get Started",
+          "buttonLink": "/contact"
+        },
+        {
+          "name": "Standard Plan",
+          "price": "$499",
+          "features": [
+            "5 Page Website",
+            "Responsive Design",
+            "Basic SEO Optimization",
+            "Contact Form Integration",
+            "7 Days Delivery"
+          ],
+          "buttonText": "Choose Plan",
+          "buttonLink": "/contact"
+        },
+        {
+          "name": "Premium Plan",
+          "price": "$999",
+          "features": [
+            "5 Page Website",
+            "Responsive Design",
+            "Basic SEO Optimization",
+            "Contact Form Integration",
+            "7 Days Delivery"
+          ],
+          "buttonText": "Start Now",
+          "buttonLink": "/contact"
+        }
+      ]
+    },
+    "updatedAt": "2026-03-04T20:35:49.306Z"
+  },
+  {
+    "_id": "69a89824a6bd4cc5245461f8",
+    "section": "testimonials",
+    "page": "home",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:37:55.978Z",
+    "data": {
+      "heading": "What Our Clients Say About Us"
+    },
+    "updatedAt": "2026-03-04T20:37:55.978Z"
+  },
+  {
+    "_id": "69a89866a6bd4cc5245461fa",
+    "section": "items",
+    "page": "testimonials",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:39:02.767Z",
+    "data": {
+      "items": [
+        {
+          "name": "Michael Anderson",
+          "position": "CEO, Tech Solutions",
+          "photo": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772656692/testimonials/items/p94czlvr3lofgm0pxqrd.jpg",
+          "message": "“Working with this team was a fantastic experience. Their professionalism, creativity, and attention to detail exceeded our expectations. Our website performance improved significantly after launch.”"
+        },
+        {
+          "name": "Sarah Williams",
+          "position": "Marketing Director, Bright Media",
+          "photo": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772656692/testimonials/items/p94czlvr3lofgm0pxqrd.jpg",
+          "message": "“Their strategic approach and design expertise helped us build a strong brand presence. We saw noticeable growth in engagement and conversions.”"
+        },
+        {
+          "name": "David Thompson",
+          "position": "Founder, Startup Hub",
+          "photo": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772656692/testimonials/items/p94czlvr3lofgm0pxqrd.jpg",
+          "message": "“They delivered exactly what we needed — a scalable, modern solution that supports our long-term growth. Highly recommended!”"
+        }
+      ]
+    },
+    "updatedAt": "2026-03-04T20:39:02.767Z"
+  },
+  {
+    "_id": "69a8989ca6bd4cc5245461fc",
+    "section": "portfolio",
+    "page": "home",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:39:56.087Z",
+    "data": {
+      "heading": "Showcasing Our Latest Creative Work",
+      "sectionButtonText": "View All Projects",
+      "sectionButtonLink": "/portfolio"
+    },
+    "updatedAt": "2026-03-04T20:39:56.087Z"
+  },
+  {
+    "_id": "69a89988a6bd4cc5245461fd",
+    "page": "about",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:43:52.320Z",
+    "data": {
+      "title": "About Us",
+      "subtitle": "Learn more about our journey, our mission, and the passionate team behind our success."
+    },
+    "updatedAt": "2026-03-05T19:43:34.082Z"
+  },
+  {
+    "_id": "69a8999da6bd4cc5245461fe",
+    "page": "about",
+    "section": "overview",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:44:13.856Z",
+    "data": {
+      "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772657043/about/overview/sumtmpapvyalbhbk73yd.jpg",
+      "title": "Empowering Businesses Through Creative Digital Solutions",
+      "description1": "We are a results-driven digital agency focused on delivering innovative solutions that help businesses grow and succeed. Our team combines creativity, technology, and strategic thinking to build impactful digital experiences.",
+      "description2": "With years of industry expertise, we are committed to quality, performance, and long-term partnerships that create real value for our clients."
+    },
+    "updatedAt": "2026-03-04T20:44:13.856Z"
+  },
+  {
+    "_id": "69a899b4a6bd4cc5245461ff",
+    "page": "about",
+    "section": "mission-vision",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:44:36.640Z",
+    "data": {
+      "missionTitle": "🎯 Our Mission",
+      "missionText": "To provide innovative and scalable digital solutions that help businesses strengthen their brand, improve efficiency, and achieve sustainable growth.",
+      "visionTitle": "👁 Our Vision",
+      "visionText": "To become a trusted global digital partner known for creativity, reliability, and delivering measurable success."
+    },
+    "updatedAt": "2026-03-04T20:44:36.640Z"
+  },
+  {
+    "_id": "69a899c4a6bd4cc524546201",
+    "page": "about",
+    "section": "why-choose",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:44:52.063Z",
+    "data": {
+      "title": "What Makes Us Different",
+      "cardText": "Experienced & Skilled Team\nClient-Centered Approach\nModern Technology Stack",
+      "items": [
+        "Long-Term Support & Maintenance",
+        "On-Time Project Delivery",
+        "Transparent Communication"
+      ]
+    },
+    "updatedAt": "2026-03-04T20:45:35.189Z"
+  },
+  {
+    "_id": "69a89a0ea6bd4cc524546203",
+    "page": "about",
+    "section": "stats",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:46:06.103Z",
+    "data": {
+      "items": [
+        {
+          "title": "250+",
+          "label": "Projects Completed"
+        },
+        {
+          "title": "180+",
+          "label": "Happy Clients"
+        },
+        {
+          "title": "8+",
+          "label": "Years Experience"
+        },
+        {
+          "title": "15+",
+          "label": "Industry Experts"
+        }
+      ]
+    },
+    "updatedAt": "2026-03-04T20:46:17.194Z"
+  },
+  {
+    "_id": "69a89a4ca6bd4cc524546205",
+    "page": "about",
+    "section": "team-preview",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:47:08.342Z",
+    "data": {
+      "title": "The Experts Behind Our Success",
+      "items": [
+        {
+          "name": "Michael Anderson",
+          "position": "CEO & Founder",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772657215/about/team-preview/r37jtcjhwkwhwoveob00.jpg"
+        },
+        {
+          "name": "Sarah Williams",
+          "position": "Creative Director",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772657215/about/team-preview/r37jtcjhwkwhwoveob00.jpg"
+        },
+        {
+          "name": "David Thompson",
+          "position": "Lead Developer",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772657215/about/team-preview/r37jtcjhwkwhwoveob00.jpg"
+        },
+        {
+          "name": "Emily Johnson",
+          "position": "Marketing Strategist",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772657215/about/team-preview/r37jtcjhwkwhwoveob00.jpg"
+        }
+      ]
+    },
+    "updatedAt": "2026-03-04T20:47:37.590Z"
+  },
+  {
+    "_id": "69a89a82a6bd4cc524546206",
+    "page": "about",
+    "section": "cta",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:48:02.329Z",
+    "data": {
+      "title": "Let’s Build Something Great Together",
+      "buttonText": "Start Your Project",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-04T20:48:02.329Z"
+  },
+  {
+    "_id": "69a89aeaa6bd4cc524546207",
+    "page": "services",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:49:46.006Z",
+    "data": {
+      "title": "Our Services",
+      "subtitle": "Discover our wide range of innovative digital solutions designed to help your business grow, scale, and stand out in the competitive market."
+    },
+    "updatedAt": "2026-03-04T20:49:46.006Z"
+  },
+  {
+    "_id": "69a89b06a6bd4cc524546208",
+    "page": "portfolio",
+    "section": "hero",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:50:14.020Z",
+    "data": {
+      "title": "Our Portfolio",
+      "subtitle": "Explore our latest projects and creative work. See how we combine design, strategy, and technology to deliver outstanding results for our clients."
+    },
+    "updatedAt": "2026-03-04T20:50:14.020Z"
+  },
+  {
+    "_id": "69a89b1ea6bd4cc524546209",
+    "page": "pricing",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:50:38.009Z",
+    "data": {
+      "title": "Pricing Plans",
+      "subtitle": "Choose a plan that fits your business needs. Our flexible pricing options are designed to deliver value, scalability, and results for every client."
+    },
+    "updatedAt": "2026-03-04T20:50:38.009Z"
+  },
+  {
+    "_id": "69a89b2aa6bd4cc52454620a",
+    "section": "cta",
+    "page": "pricing",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:50:50.228Z",
+    "data": {
+      "title": "Ready to Start Your Project?",
+      "buttonText": "Get Started",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-04T20:50:50.228Z"
+  },
+  {
+    "_id": "69a89b40a6bd4cc52454620b",
+    "page": "blog",
+    "section": "page-banner",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:51:12.405Z",
+    "data": {
+      "title": "Our Blog",
+      "subtitle": "Our Blog"
+    },
+    "updatedAt": "2026-03-04T20:51:12.405Z"
+  },
+  {
+    "_id": "69a89b50a6bd4cc52454620c",
+    "section": "cta",
+    "page": "blog",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:51:28.575Z",
+    "data": {
+      "title": "Want to Stay Ahead?",
+      "subtitle": "Subscribe to our newsletter and get the latest updates, tips, and insights delivered directly to your inbox. Stay informed and grow your business with expert knowledge.",
+      "buttonText": "Subscribe Now",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-04T20:51:28.575Z"
+  },
+  {
+    "_id": "69a89b6ba6bd4cc52454620e",
+    "page": "contact",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:51:55.796Z",
+    "data": {
+      "title": "Contact Us",
+      "subtitle": "Have questions or a project in mind? We’d love to hear from you. Reach out to our team and let’s create something amazing together."
+    },
+    "updatedAt": "2026-03-04T20:51:55.796Z"
+  },
+  {
+    "_id": "69a89b78a6bd4cc52454620f",
+    "section": "cta",
+    "page": "contact",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:52:08.121Z",
+    "data": {
+      "title": "Let’s Connect",
+      "buttonText": "Send Message",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-04T20:52:08.121Z"
+  },
+  {
+    "_id": "69a89b8ca6bd4cc524546210",
+    "page": "contact",
+    "section": "info",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:52:28.496Z",
+    "data": {
+      "addressTitle": "📍 Address",
+      "address": "123 Business Street, City, Country",
+      "emailTitle": "✉️ Email",
+      "email": "info@youragency.com",
+      "phoneTitle": "📞 Phone",
+      "phone": "+1 (234) 567-890"
+    },
+    "updatedAt": "2026-03-04T20:52:28.496Z"
+  },
+  {
+    "_id": "69a89b9ba6bd4cc524546211",
+    "page": "terms",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:52:43.087Z",
+    "data": {
+      "title": "Terms & Conditions"
+    },
+    "updatedAt": "2026-03-04T20:52:44.782Z"
+  },
+  {
+    "_id": "69a89ba5a6bd4cc524546212",
+    "section": "content",
+    "page": "terms",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:52:53.471Z",
+    "data": {
+      "body": "Welcome to Toris. By accessing or using our website and services, you agree to comply with and be bound by the following terms and conditions. Please read them carefully."
+    },
+    "updatedAt": "2026-03-04T20:52:53.471Z"
+  },
+  {
+    "_id": "69a89baca6bd4cc524546213",
+    "section": "banner",
+    "page": "privacy",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:53:00.354Z",
+    "data": {
+      "title": "Privacy Policy"
+    },
+    "updatedAt": "2026-03-04T20:53:00.354Z"
+  },
+  {
+    "_id": "69a89bb2a6bd4cc524546214",
+    "section": "content",
+    "page": "privacy",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:53:06.834Z",
+    "data": {
+      "body": "At Toris, your privacy is important to us. This privacy policy explains how we collect, use, and protect your personal information when you visit our website or use our services."
+    },
+    "updatedAt": "2026-03-04T20:53:06.834Z"
+  },
+  {
+    "_id": "69a89bbca6bd4cc524546215",
+    "page": "careers",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:53:16.422Z",
+    "data": {
+      "title": "Join Our Team",
+      "subtitle": "We’re always looking for passionate, talented, and creative individuals to join our growing team. At Toris, you’ll work on exciting projects, collaborate with industry experts, and grow your career in a dynamic environment."
+    },
+    "updatedAt": "2026-03-04T20:54:53.814Z"
+  },
+  {
+    "_id": "69a89befa6bd4cc524546216",
+    "page": "careers",
+    "section": "jobs",
+    "__v": 0,
+    "createdAt": "2026-03-04T20:54:07.859Z",
+    "data": {
+      "items": [
+        {
+          "title": "Frontend Developer",
+          "location": "Sylhet, Bangladesh",
+          "type": "Full-Time",
+          "applyText": "Apply Now",
+          "applyLink": "/contact"
+        },
+        {
+          "title": "Digital Marketing Specialist",
+          "location": "Dhaka, Bangladesh",
+          "type": "Full-Time",
+          "applyText": "Apply Now",
+          "applyLink": "/contact"
+        },
+        {
+          "title": "UI/UX Designer",
+          "location": "Remote",
+          "type": "Contract / Part-Time",
+          "applyText": "Apply Now",
+          "applyLink": "/contact"
+        },
+        {
+          "title": "Backend Developer",
+          "location": "Chittagong, Bangladesh",
+          "type": "Full-Time",
+          "applyText": "Apply Now",
+          "applyLink": "/contact"
+        }
+      ]
+    },
+    "updatedAt": "2026-03-04T20:55:15.172Z"
+  },
+  {
+    "_id": "69a9b4c5bb874d2d09d5ca57",
+    "section": "banner",
+    "page": "testimonials",
+    "__v": 0,
+    "createdAt": "2026-03-05T16:52:21.649Z",
+    "data": {
+      "title": "Testimonials",
+      "subtitle": "Discover what our clients say about working with us. Their feedback reflects our commitment to quality, creativity, and delivering outstanding results."
+    },
+    "updatedAt": "2026-03-05T16:52:21.649Z"
+  },
+  {
+    "_id": "69a9b4d3bb874d2d09d5ca58",
+    "section": "cta",
+    "page": "testimonials",
+    "__v": 0,
+    "createdAt": "2026-03-05T16:52:35.818Z",
+    "data": {
+      "title": "Ready To Work With Us?",
+      "subtitle": "Join the growing list of satisfied clients who trust us to deliver exceptional digital solutions. Let’s collaborate and bring your ideas to life.",
+      "buttonText": "Start Your Project",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-05T16:52:35.818Z"
+  },
+  {
+    "_id": "69a9b608bb874d2d09d5ca5a",
+    "page": "faq",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-05T16:57:44.652Z",
+    "data": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find answers to common questions about our services, processes, and support. If you need more information, feel free to contact our team."
+    },
+    "updatedAt": "2026-03-05T16:57:44.652Z"
+  },
+  {
+    "_id": "69a9b614bb874d2d09d5ca5b",
+    "page": "faq",
+    "section": "cta",
+    "__v": 0,
+    "createdAt": "2026-03-05T16:57:56.864Z",
+    "data": {
+      "title": "Still Have Questions?",
+      "subtitle": "If you couldn’t find the answer you were looking for, feel free to reach out. Our team is happy to help and provide the information you need.",
+      "buttonText": "Contact Us",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-05T16:57:56.864Z"
+  },
+  {
+    "_id": "69a9b6ddbb874d2d09d5ca5f",
+    "page": "faq",
+    "section": "faqs",
+    "__v": 0,
+    "createdAt": "2026-03-05T17:01:17.244Z",
+    "data": {
+      "items": [
+        {
+          "question": "What services do you offer?",
+          "answer": "We provide a wide range of digital solutions including web design and development, UI/UX design, branding, digital marketing, and SEO optimization."
+        },
+        {
+          "question": "How long does a typical project take?",
+          "answer": "Project timelines depend on the scope and complexity. Most standard website projects are completed within 2–4 weeks."
+        },
+        {
+          "question": "Do you offer ongoing support after project completion?",
+          "answer": "Yes, we provide maintenance and support services to ensure your website remains secure, updated, and performing well."
+        },
+        {
+          "question": "Can you customize services based on our business needs?",
+          "answer": "Absolutely. We tailor our solutions to match your specific goals, ensuring the best possible results for your business."
+        }
+      ]
+    },
+    "updatedAt": "2026-03-05T17:01:17.244Z"
+  },
+  {
+    "_id": "69a9bbd7bb874d2d09d5ca71",
+    "page": "team",
+    "section": "banner",
+    "__v": 0,
+    "createdAt": "2026-03-05T17:22:31.871Z",
+    "data": {
+      "title": "Our Team",
+      "subtitle": "Meet the talented professionals behind our success. Our team brings creativity, expertise, and dedication to every project we deliver."
+    },
+    "updatedAt": "2026-03-05T17:22:33.465Z"
+  },
+  {
+    "_id": "69a9bbecbb874d2d09d5ca72",
+    "page": "team",
+    "section": "cta",
+    "__v": 0,
+    "createdAt": "2026-03-05T17:22:51.999Z",
+    "data": {
+      "title": "Want To Work With Our Team?",
+      "subtitle": "Let’s collaborate and create innovative solutions that help your business grow and succeed.",
+      "buttonText": "Start Your Project",
+      "buttonLink": "/contact"
+    },
+    "updatedAt": "2026-03-05T17:22:51.999Z"
+  },
+  {
+    "_id": "69a9bc43bb874d2d09d5ca74",
+    "page": "team",
+    "section": "members",
+    "__v": 0,
+    "createdAt": "2026-03-05T17:24:19.514Z",
+    "data": {
+      "items": [
+        {
+          "name": "Michael Anderson",
+          "role": "CEO & Founder",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772731427/team/members/yqtkloemgelytqfu0sqm.jpg"
+        },
+        {
+          "name": "Sarah Williams",
+          "role": "Creative Director",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772731427/team/members/yqtkloemgelytqfu0sqm.jpg"
+        },
+        {
+          "name": "David Thompson",
+          "role": "Lead Developer",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772731427/team/members/yqtkloemgelytqfu0sqm.jpg"
+        },
+        {
+          "name": "Emily Johnson",
+          "role": "Marketing Strategist",
+          "image": "https://res.cloudinary.com/dbbfi0kuz/image/upload/v1772731427/team/members/yqtkloemgelytqfu0sqm.jpg"
+        }
+      ]
+    },
+    "updatedAt": "2026-03-05T17:24:19.514Z"
+  }
+]
